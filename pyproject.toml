@@ -1,0 +1,27 @@
+[project]
+name = "synthetic-data-platform"
+version = "0.1.0"
+description = "Plataforma de geração de dados sintéticos usando SDV."
+readme = "README.md"
+license = { text = "MIT" }
+
+authors = [
+    { name = "Alexandre Rodrigues" }
+]
+
+requires-python = ">=3.10,<3.12"
+
+dependencies = [
+    "pandas>=2.2.0,<3.0.0",
+    "pyarrow>=17.0.0,<18.0.0",
+    "sdv>=1.16,<2.0",
+    "jupyter>=1.1.1",
+    "ipykernel>=6.29.0"
+]
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
