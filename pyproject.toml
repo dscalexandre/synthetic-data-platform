@@ -3,7 +3,6 @@ name = "synthetic-data-platform"
 version = "0.1.0"
 description = "Plataforma de geração de dados sintéticos usando SDV."
 readme = "README.md"
-license = { text = "MIT" }
 
 authors = [
     { name = "Alexandre Rodrigues" }
