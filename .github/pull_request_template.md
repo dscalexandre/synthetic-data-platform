@@ -1,27 +1,27 @@
-Objetivo
+# Objetivo
 
 Descreva resumidamente o objetivo desta alteração.
 
-Alterações realizadas:
-[ ] Item 1
-[ ] Item 2
-[ ] Item 3
+## Alterações realizadas
 
-Tipo de alteração:
-[ ] feat
-[ ] fix
-[ ] docs
-[ ] refactor
-[ ] chore
-[ ] build
+- Item 1
 
-Checklist:
-[ ] Testado localmente
-[ ] Sem erros observados
-[ ] Documentação atualizada
-[ ] Task Jira atualizada
-[ ] Pull Request revisado
+## Tipo de alteração
 
-Jira:
+- [ ] feat
+- [ ] fix
+- [ ] docs
+- [ ] refactor
+- [ ] chore
+- [ ] build
+
+## Checklist
+
+- [ ] Testado localmente
+- [ ] Documentação atualizada (se aplicável)
+- [ ] Task Jira atualizada
+- [ ] Pull Request revisado
+
+## Jira
 
 Task: PDFB-XX
