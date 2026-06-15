@@ -40,3 +40,11 @@ Desktop.ini
 *.temp
 *~
 .Trash-*
+
+# Dados brutos
+data/raw/*
+!data/raw/.gitkeep
+
+# Dados processados
+data/processed_data/*
+!data/processed_data/.gitkeep
