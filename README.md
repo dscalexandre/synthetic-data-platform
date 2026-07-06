@@ -58,12 +58,6 @@ synthetic-data-platform/
 │
 ├── output/
 │
-├── src/
-│   └── sdp/
-│       ├── __init__.py
-│       ├── statistics.py
-│       └── utils.py
-│
 ├── .editorconfig
 ├── .gitignore
 ├── poetry.lock
@@ -82,7 +76,7 @@ synthetic-data-platform/
 | adr                 | Registros individuais de decisões arquiteturais                    |
 | notebooks           | Notebook principal de experimentação com Gaussian Copula           |
 | output              | Artefatos gerados e resultados de experimentos                     |
-| pyproject.toml      | Metadados e dependências do projeto                                |
+| pyproject.toml      | Metadados e dependências do projeto, sem empacotamento de código     |
 ```
 
 ## Como Executar

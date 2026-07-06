@@ -13,7 +13,9 @@ Aceita.
 
 ## Decisão
 
-Adotar Poetry como gerenciador de dependências e de ambiente do projeto.
+Adotar Poetry como gerenciador de dependências e de ambiente do projeto. Como
+o repositório não distribui um pacote Python próprio, o Poetry opera com o modo
+de empacotamento desabilitado (`package-mode = false`).
 
 ## Consequências positivas
 

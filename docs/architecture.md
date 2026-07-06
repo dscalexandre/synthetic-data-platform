@@ -79,6 +79,8 @@ Fluxo simplificado:
 
 - O projeto é uma plataforma inicial de bootstrap e não um produto completo.
 - Não há código de pipeline de produção ou automação de ETL formalizado ainda.
+- O projeto não possui um pacote Python próprio; o Poetry é usado somente para
+  gerenciar dependências e o ambiente de execução.
 - A principal implementação é exploratória e baseada em um notebook.
 - Avaliação de qualidade, validação de privacidade e deploy ainda não estão
   formalizados.
