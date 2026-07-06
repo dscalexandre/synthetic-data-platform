@@ -1,31 +1,42 @@
-# ADR-002 — Uso de Poetry para gerenciamento de dependências
+# ADR-002 — Usar Poetry para gerenciar dependências
 
 ## Status
 
-Aceita.
+Aceito.
 
 ## Contexto
 
-- Poetry oferece gerenciamento consistente de dependências com resolução automática de conflitos.
-- Suporta ambientes virtuais isolados no próprio projeto com `virtualenvs.in-project = true`.
-- Garante reprodutibilidade entre ambientes diferentes.
-- Integra-se a ferramentas de qualidade de código e publicação de pacotes.
+- O projeto precisa declarar, resolver e instalar dependências Python de forma
+  reproduzível.
+- O ambiente inclui dependências obrigatórias para manipulação e síntese de
+  dados e um conjunto opcional para a execução dos notebooks.
+- O projeto não distribui um pacote Python próprio.
 
 ## Decisão
 
-Adotar Poetry como gerenciador de dependências e de ambiente do projeto. Como
-o repositório não distribui um pacote Python próprio, o Poetry opera com o modo
-de empacotamento desabilitado (`package-mode = false`).
+Adotar Poetry como gerenciador de dependências e do ambiente do projeto. Manter o modo de empacotamento desabilitado (`package-mode = false`) e registrar as versões resolvidas em `poetry.lock`.
 
 ## Consequências positivas
 
-- Gerenciamento simplificado de dependências com arquivo de lock (`poetry.lock`).
-- Ambiente isolado e reprodutível para toda a equipe.
-- Onboarding facilitado com o comando padrão `poetry install`.
-- Suporte a grupos de dependências, como desenvolvimento e testes, para melhor controle de escopo.
+- Centraliza metadados e restrições de dependências em `pyproject.toml`.
+- Mantém as versões resolvidas no arquivo `poetry.lock`.
+- Separa as ferramentas de notebook no conjunto opcional `notebooks`.
+- Permite instalar o ambiente de execução dos notebooks com um único comando:
+  `poetry install -E notebooks`.
+
+## Consequências negativas
+
+- Colaboradores precisam instalar e conhecer os comandos do Poetry.
+- Alterações de dependências exigem manter `pyproject.toml` e `poetry.lock`
+  sincronizados.
+- A reprodução também depende de uma versão de Python compatível
+  (`>=3.10,<3.12`).
 
 ## Alternativas consideradas
 
-- `pip` com `requirements.txt`: solução simples, mas sem resolução robusta de conflitos.
-- `pipenv`: semelhante ao Poetry, mas menos adotado em projetos novos.
-- `conda`: alternativa viável, mas adiciona complexidade e maior uso de espaço em disco.
+- `pip` com `requirements.txt`: solução mais simples, mas separa a declaração do
+  projeto do arquivo de versões instaláveis.
+- Pipenv: também gerencia ambiente e arquivo de bloqueio, com fluxo diferente do
+  adotado pela equipe.
+- Conda: gerencia dependências Python e de sistema, mas acrescentaria outro
+  formato de ambiente ao projeto.
