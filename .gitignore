@@ -41,12 +41,9 @@ Desktop.ini
 *~
 .Trash-*
 
-# Dados brutos
-data/raw/**
-!data/raw/
-!data/raw/.gitkeep
+# Dados
+data/**
+!data/
+!data/**/
+!data/**/.gitkeep
 
-# Dados processados
-data/processed_data/**
-!data/processed_data/
-!data/processed_data/.gitkeep
