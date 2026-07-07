@@ -1,88 +1,91 @@
-# Arquitetura da Plataforma de Dados Sintéticos
+# Arquitetura da Plataforma do Gerador de Dados Sintéticos
 
-## Objetivo da solução
+## Visão geral
 
-A plataforma tem como objetivo oferecer uma base inicial para geração de dados
-sintéticos usando SDV. O foco é permitir a ingestão, a preparação e a
-transformação de dados brutos, além da geração exploratória de dados sintéticos
-por meio de um notebook Jupyter.
+A solução implementa um fluxo exploratório para preparar dados tabulares e gerar
+uma amostra sintética com o SDV. Nesta fase, os notebooks são simultaneamente a
+interface de execução, a implementação do fluxo e o registro das análises.
 
-## Componentes principais do projeto
+```text
+Dados brutos       Dados preparados       Dados sintéticos
+data/raw/ ───────► data/processed/ ─────► data/synthetic/
+           notebook 01             notebook 02
+```
 
-### Ingestão / saída de dados
+## Componentes
 
-- `data/raw`: local destinado ao armazenamento dos dados originais recebidos ou
-  estudados.
-- `data/processed_data`: local destinado ao armazenamento de dados transformados
-  e preparados para análise ou geração sintética.
-- `output`: local para artefatos gerados, resultados de experimentos e possíveis
-  artefatos de modelo.
+### Armazenamento local
+
+- `data/raw/`: dados de origem, preservados sem transformação;
+- `data/processed/`: dados consolidados e preparados para a modelagem;
+- `data/synthetic/`: metadados detectados pelo SDV e amostras sintéticas.
+
+O arquivo `.gitignore` exclui o conteúdo desses diretórios do versionamento e
+mantém apenas seus respectivos arquivos `.gitkeep`. Assim, dados de entrada e
+artefatos gerados permanecem locais.
 
 ### Preparação de dados
 
-- O projeto usa um notebook Jupyter para explorar e preparar os dados.
-- A preparação inclui limpeza, transformação e formatação dos dados de maneira
-  compatível com os modelos SDV.
-- A lógica de preparação deve ser documentada e experimentada no notebook
-  `notebooks/01_gaussian_copula.ipynb`.
+O notebook [`01_data_preparation.ipynb`](../notebooks/01_data_preparation.ipynb) executa as seguintes etapas:
 
-### Geração sintética com SDV
+1. lê os arquivos CSV particionados disponíveis em `data/raw/customers/`;
+2. consolida os registros em um único conjunto de dados;
+3. realiza as transformações e validações necessárias;
+4. grava o resultado em `data/processed/customers.csv`.
 
-- O projeto utiliza a biblioteca `sdv` para gerar dados sintéticos.
-- A geração sintética é tratada como uma etapa de modelagem que recebe os dados
-  processados e produz amostras por meio do SDV.
-- O notebook deve documentar o fluxo de preparação, treinamento e amostragem
-  usando o modelo Gaussian Copula.
+### Geração sintética
 
-### Notebook como ferramenta de exploração
+O notebook [`02_gaussian_copula.ipynb`](../notebooks/02_gaussian_copula.ipynb):
 
-- `notebooks/01_gaussian_copula.ipynb`: concentra a análise exploratória, a
-  preparação dos dados e a experimentação com geração sintética usando o modelo
-  Gaussian Copula.
-- O notebook é a principal interface de desenvolvimento e validação nesta fase
-  inicial.
+1. carrega `data/processed/customers.csv`;
+2. detecta e ajusta os metadados da tabela;
+3. treina um `GaussianCopulaSynthesizer`;
+4. gera e valida uma amostra sintética;
+5. compara características dos dados preparados e sintéticos;
+6. grava os metadados e a amostra em `data/synthetic/`.
 
-## Fluxo da solução
+Os artefatos esperados são:
 
-1. Dados brutos são armazenados em `data/raw`.
-2. Dados são limpos, transformados e colocados em `data/processed_data`.
-3. O notebook explora os dados processados, avalia sua qualidade e testa a
-   geração sintética.
-4. Os resultados e artefatos dos experimentos podem ser direcionados para
-   `output`.
+- `data/synthetic/customers_metadata.json`;
+- `data/synthetic/customers_synthetic.csv`.
 
-Fluxo simplificado:
+### Configuração do ambiente
 
-`data/raw` -> `data/processed_data` -> `notebooks` / `output`
+- `pyproject.toml`: metadados, versão compatível do Python e dependências;
+- `poetry.lock`: versões resolvidas para reprodução do ambiente;
+- `.vscode/settings.json`: seleção local do ambiente Poetry no Visual Studio
+  Code. O diretório `.vscode/` não é versionado;
+- `.editorconfig`: regras básicas de formatação dos arquivos de texto.
 
-## Estrutura de diretórios
+O projeto usa o Poetry com `package-mode = false`, pois não distribui um pacote
+Python. As dependências do Jupyter pertencem ao conjunto opcional `notebooks`.
 
-- `data/raw`: dados fonte brutos, não modificados
-- `data/processed_data`: dados preparados para análise ou geração sintética
-- `docs`: documentação do projeto, incluindo arquitetura e ADRs
-- `notebooks`: contém o notebook `01_gaussian_copula.ipynb`, utilizado para
-  análise exploratória e experimentação com SDV
-- `output`: artefatos gerados e resultados de experimentos
-- `pyproject.toml`: configuração de dependências e metadados do projeto
-- `README.md`: documento principal do repositório
+### Documentação do projeto
 
-## Tecnologias e dependências
+- `README.md`: visão geral, pré-requisitos, instalação e instruções de execução;
+- `docs/architecture.md`: componentes, fluxo de dados e limites arquiteturais da
+  solução;
+- `docs/adr/`: registros individuais das decisões arquiteturais e de suas
+  consequências.
 
-- Python 3.10+ (compatível com `>=3.10,<3.12`)
-- `Poetry` para gerenciamento de dependências e ambiente
-- `pandas` para manipulação de dados
-- `pyarrow` para leitura/escrita de dados e interoperabilidade de formatos
-- `sdv` para geração de dados sintéticos
-- `jupyter` e `ipykernel` para execução de notebooks
+## Sequência de execução
+
+Os notebooks devem ser iniciados a partir da raiz do repositório, pois usam
+caminhos relativos:
+
+1. instalar o ambiente com `poetry install -E notebooks`;
+2. colocar os CSVs de origem em `data/raw/customers/`;
+3. executar `notebooks/01_data_preparation.ipynb`;
+4. verificar `data/processed/customers.csv`;
+5. executar `notebooks/02_gaussian_copula.ipynb`;
+6. verificar os artefatos em `data/synthetic/`.
 
 ## Limites do escopo atual
 
-- O projeto é uma plataforma inicial de bootstrap e não um produto completo.
-- Não há código de pipeline de produção ou automação de ETL formalizado ainda.
-- O projeto não possui um pacote Python próprio; o Poetry é usado somente para
-  gerenciar dependências e o ambiente de execução.
-- A principal implementação é exploratória e baseada em um notebook.
-- Avaliação de qualidade, validação de privacidade e deploy ainda não estão
-  formalizados.
-- O repositório serve como base para evoluções futuras em engenharia de dados e
-  geração sintética.
+- A execução é manual e não há orquestrador de pipeline.
+- O conjunto e os caminhos usados nos notebooks são específicos de `customers`.
+- A preparação e a modelagem ainda não foram extraídas para módulos Python.
+- Não há suíte automatizada de testes ou integração contínua.
+
+As escolhas que sustentam esta estrutura estão registradas nos
+[ADRs do projeto](adr/).
