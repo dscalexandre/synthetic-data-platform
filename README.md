@@ -4,9 +4,9 @@
 
 # Synthetic Data Platform
 
-Protótipo de um fluxo reproduzível para preparação, geração e avaliação de dados tabulares sintéticos com Python, Jupyter e [SDV](https://docs.sdv.dev/sdv). O projeto consolida partições de uma tabela de clientes, treina um sintetizador baseado em cópula gaussiana e persiste localmente os metadados e a amostra produzida.
+Protótipo de um fluxo reproduzível para preparação, geração e avaliação de dados tabulares sintéticos com Python, Jupyter e [SDV](https://docs.sdv.dev/sdv). O projeto consolida partições de uma tabela, treina um sintetizador baseado em cópula gaussiana e persiste localmente os metadados e os dados sintéticos gerados.
 
-> **Estado do projeto:** prova de conceito em desenvolvimento. A execução é manual, orientada por notebooks e limitada a uma única tabela (`customers`). Não se trata, neste estágio, de uma plataforma de produção ou de uma solução de anonimização certificada.
+> **Estado do projeto:** Estruturado para evoluir com suporte a diferentes modelos de síntese de dados, incluindo modelos probabilísticos, algoritmos de aprendizado de máquina e modelos baseados em redes neurais profundas, além da síntese de múltiplas tabelas.
 
 ## Fluxo implementado
 
@@ -14,17 +14,17 @@ Protótipo de um fluxo reproduzível para preparação, geração e avaliação 
 data/raw/customers/*.csv
             │
             ▼
-01_data_preparation.ipynb
-  • valida o esquema das partições
+01_data_analysis.ipynb
   • consolida os registros
-  • verifica ausências e IDs duplicados
+  • inspeciona estrutura, ausências e duplicidades
+  • transforma datas e analisa age_group
             │
             ▼
 data/processed/customers.csv
             │
             ▼
 02_gaussian_copula.ipynb
-  • detecta e ajusta metadados
+  • detecta e registra metadados
   • treina o GaussianCopulaSynthesizer
   • gera e avalia uma amostra sintética
             │
@@ -35,9 +35,11 @@ data/synthetic/customers_synthetic.csv
 
 O fluxo cobre:
 
-- ingestão de arquivo particionado em csv;
+- ingestão de arquivos CSV particionados;
 - consolidação e verificações exploratórias de qualidade;
-- detecção e ajuste semântico dos metadados pelo SDV;
+- conversão controlada das colunas de data;
+- análise exploratória da variável `age_group`;
+- detecção dos metadados pelo SDV;
 - treinamento e amostragem com `GaussianCopulaSynthesizer`;
 - diagnóstico de validade e estrutura dos dados gerados;
 - avaliação de distribuições por coluna e relações entre pares de colunas;
@@ -66,7 +68,7 @@ As versões resolvidas estão registradas em `poetry.lock`. O projeto utiliza `p
 │   ├── images/              # recursos visuais da documentação
 │   └── architecture.md      # arquitetura e limites da solução
 ├── notebooks/
-│   ├── 01_data_preparation.ipynb
+│   ├── 01_data_analysis.ipynb
 │   └── 02_gaussian_copula.ipynb
 ├── pyproject.toml
 ├── poetry.lock
@@ -109,9 +111,9 @@ creation_date,last_activity_date,age_group,id
 O fluxo pressupõe ainda que:
 
 - `id` identifica unicamente cada registro;
-- `country` e `last_country_logged` contêm códigos de país ISO Alpha-2;
+- `country` e `last_country_logged` contêm códigos de país ISO Alpha-3 e são tratados como variáveis categóricas;
 - as datas podem ser interpretadas no formato `%m-%d-%Y %H:%M:%S`;
-- `age_group` é uma variável numérica;
+- `age_group` é uma variável numérica discreta;
 - todas as partições apresentam as colunas na mesma ordem.
 
 ### 3. Inicie o Jupyter
@@ -122,7 +124,7 @@ poetry run jupyter lab
 
 Execute integralmente os notebooks, nesta ordem:
 
-1. `notebooks/01_data_preparation.ipynb`;
+1. `notebooks/01_data_analysis.ipynb`;
 2. `notebooks/02_gaussian_copula.ipynb`.
 
 Os notebooks aceitam execução iniciada na raiz do projeto ou no diretório `notebooks/`. Ao final, verifique:
@@ -141,6 +143,8 @@ O segundo notebook executa duas análises complementares do SDV:
 - **relatório de qualidade**, que compara distribuições individuais e tendências entre pares de colunas.
 
 Também são exibidas comparações visuais para `age_group`. As pontuações devem ser analisadas a cada execução: uma estrutura válida não garante fidelidade estatística, utilidade analítica ou proteção contra reidentificação. O protótipo ainda não define limiares de aceite nem testes automatizados para essas propriedades.
+
+Na execução registrada nos notebooks, o diagnóstico estrutural indicou validade de 100%, enquanto o relatório de qualidade ficou em 56,5%. Esse resultado é coerente com o estágio de prova de conceito: o fluxo gera dados estruturalmente válidos, mas ainda precisa de refinamento para melhorar a preservação de relações estatísticas entre colunas.
 
 ## Privacidade e uso responsável
 
