@@ -12,6 +12,8 @@ Aceito.
   amostragem e avaliação.
 - A biblioteca disponibiliza diferentes sintetizadores para tabelas, entre eles
   Gaussian Copula, CTGAN e TVAE.
+- O fluxo atual precisa registrar os metadados detectados, validar a estrutura
+  dos dados gerados e comparar a qualidade estatística da amostra sintética.
 - O ecossistema é compatível com Python e com o fluxo exploratório adotado pelo
   projeto.
 
@@ -19,7 +21,13 @@ Aceito.
 
 Usar a biblioteca SDV (Synthetic Data Vault) como ferramenta principal de
 geração e avaliação de dados sintéticos. O fluxo atual usa o
-`GaussianCopulaSynthesizer` para uma única tabela.
+`GaussianCopulaSynthesizer` para uma única tabela (`customers`), com metadados
+detectados por `Metadata.detect_from_dataframe`, diagnóstico por
+`run_diagnostic` e avaliação por `evaluate_quality`.
+
+No protótipo atual, a coluna `id` do conjunto de origem é preservada no conjunto
+sintético para manter compatibilidade com relacionamentos externos. Essa escolha
+é operacional e não deve ser interpretada como anonimização.
 
 ## Consequências positivas
 
@@ -41,3 +49,5 @@ geração e avaliação de dados sintéticos. O fluxo atual usa o
 - `Faker` com regras personalizadas: adequado para dados fictícios baseados em
   regras, mas não para reproduzir automaticamente relações estatísticas do
   conjunto de origem.
+- Implementação própria de sintetizador estatístico: aumentaria controle sobre o
+  modelo, mas ampliaria esforço, risco de erro e necessidade de validação.

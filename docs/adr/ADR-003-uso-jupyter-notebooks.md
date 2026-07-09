@@ -19,13 +19,19 @@ Aceito.
 
 ## Decisão
 
-Usar notebooks Jupyter como ferramenta principal para preparação exploratória,
-experimentação, avaliação e documentação do fluxo atual. Organizar a execução
-em dois artefatos sequenciais:
+Usar notebooks Jupyter como ferramenta principal para análise exploratória,
+preparação, experimentação, avaliação e documentação do fluxo atual. Organizar a
+execução em dois artefatos sequenciais:
 
-- `notebooks/01_data_preparation.ipynb` para preparar os dados;
+- `notebooks/01_data_analysis.ipynb` para consolidar os CSVs particionados,
+  inspecionar qualidade, transformar datas, analisar `age_group` e exportar os
+  dados processados;
 - `notebooks/02_gaussian_copula.ipynb` para modelar, gerar e avaliar os dados
   sintéticos.
+
+Os notebooks devem poder ser executados a partir da raiz do repositório ou do
+diretório `notebooks/`, ajustando o diretório de trabalho para a raiz do
+projeto.
 
 ## Consequências positivas
 
@@ -41,10 +47,8 @@ em dois artefatos sequenciais:
 
 - A execução fora de ordem pode produzir resultados inconsistentes.
 - Diferenças no estado do kernel dificultam a reprodução de uma sessão.
-- Arquivos `.ipynb` geram revisões de código mais ruidosas do que módulos
-  Python equivalentes.
-- O crescimento do fluxo poderá exigir a extração da lógica reutilizável para
-  módulos e a adoção de testes automatizados.
+- A lógica de preparação e avaliação permanece menos reutilizável enquanto não
+  for extraída para módulos Python.
 
 ## Alternativa considerada
 

@@ -8,13 +8,21 @@ Aceito.
 
 - O projeto precisa declarar, resolver e instalar dependências Python de forma
   reproduzível.
-- O ambiente inclui dependências obrigatórias para manipulação e síntese de
-  dados e um conjunto opcional para a execução dos notebooks.
+- O ambiente inclui dependências obrigatórias para síntese de dados e um
+  conjunto opcional para análise, visualização e execução dos notebooks.
 - O projeto não distribui um pacote Python próprio.
+- A implementação atual está concentrada em notebooks, sem pacote importável ou
+  módulos Python próprios.
 
 ## Decisão
 
-Adotar Poetry como gerenciador de dependências e do ambiente do projeto. Manter o modo de empacotamento desabilitado (`package-mode = false`) e registrar as versões resolvidas em `poetry.lock`.
+Adotar Poetry como gerenciador de dependências e do ambiente do projeto. Manter
+o modo de empacotamento desabilitado (`package-mode = false`) e registrar as
+versões resolvidas em `poetry.lock`.
+
+As dependências obrigatórias declaradas são `pyarrow` e `sdv`. As dependências
+de execução dos notebooks ficam no extra `notebooks`, incluindo `jupyter`,
+`ipykernel`, `watermark`, `pandas`, `plotly` e `scipy`.
 
 ## Consequências positivas
 
@@ -29,8 +37,6 @@ Adotar Poetry como gerenciador de dependências e do ambiente do projeto. Manter
 - Colaboradores precisam instalar e conhecer os comandos do Poetry.
 - Alterações de dependências exigem manter `pyproject.toml` e `poetry.lock`
   sincronizados.
-- A reprodução também depende de uma versão de Python compatível
-  (`>=3.10,<3.12`).
 
 ## Alternativas consideradas
 
