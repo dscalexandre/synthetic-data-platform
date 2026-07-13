@@ -4,7 +4,9 @@
 
 # Synthetic Data Engine
 
-Protótipo de um fluxo reproduzível para preparação, geração e avaliação de dados tabulares sintéticos com Python, Jupyter e [SDV](https://docs.sdv.dev/sdv). O projeto consolida partições de uma tabela, treina um sintetizador baseado em cópula gaussiana e persiste localmente os metadados e os dados sintéticos gerados.
+Motor reproduzível para preparação, geração e avaliação de dados tabulares sintéticos com Python, Jupyter e [SDV](https://docs.sdv.dev/sdv).
+
+O projeto consolida partições de uma tabela, treina um sintetizador baseado em cópula gaussiana e persiste localmente os metadados e os dados sintéticos gerados.
 
 > **Estado do projeto:** Estruturado para evoluir com suporte a diferentes modelos de síntese de dados, incluindo modelos probabilísticos, algoritmos de aprendizado de máquina e modelos baseados em redes neurais profundas, além da síntese de múltiplas tabelas.
 
@@ -58,21 +60,43 @@ As versões resolvidas estão registradas em `poetry.lock`. O projeto utiliza `p
 ## Estrutura do repositório
 
 ```text
-.
-├── data/
-│   ├── raw/                 # partições CSV de origem (não versionadas)
-│   ├── processed/           # tabela consolidada (não versionada)
-│   └── synthetic/           # metadados e amostras geradas (não versionados)
-├── docs/
-│   ├── adr/                 # registros de decisões arquiteturais
-│   ├── images/              # recursos visuais da documentação
-│   └── architecture.md      # arquitetura e limites da solução
-├── notebooks/
-│   ├── 01_data_analysis.ipynb
-│   └── 02_gaussian_copula.ipynb
-├── pyproject.toml
-├── poetry.lock
-└── README.md
+synthetic-data-engine/
+│
+├── .github/                             
+│   └── pull_request_template.md         
+│
+├── data/                                 
+│   ├── raw/                             
+│   │   └── .gitkeep
+│   │
+│   ├── processed/                        
+│   │   └── .gitkeep
+│   │
+│   └── synthetic/                        
+│       └── .gitkeep
+│
+├── docs/                                
+│   ├── adr/                              
+│   │   ├── ADR-001-uso-sdv.md
+│   │   ├── ADR-002-uso-poetry.md
+│   │   ├── ADR-003-uso-jupyter-notebooks.md
+│   │   └── ADR-004-adocao-de-adrs-individuais.md
+│   │
+│   ├── images/                          
+│   │   └── synthetic-data-engine.png
+│   │
+│   └── architecture.md                   
+│
+├── notebooks/                           
+│   ├── 01_data_analysis.ipynb            
+│   └── 02_gaussian_copula.ipynb          
+│
+├── .editorconfig                        
+├── .gitignore                          
+├── LICENSE                               
+├── poetry.lock                          
+├── pyproject.toml                       
+└── README.md                             
 ```
 
 Os diretórios de dados mantêm apenas arquivos `.gitkeep` no Git. Entradas e artefatos gerados são ignorados para evitar o versionamento acidental de dados potencialmente sensíveis.
