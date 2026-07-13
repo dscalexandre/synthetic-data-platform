@@ -6,8 +6,8 @@ Aceito.
 
 ## Contexto
 
-- Notebooks combinam código, resultados visuais e documentação no mesmo
-  artefato.
+- No `synthetic-data-engine`, notebooks combinam código, resultados visuais e
+  documentação no mesmo artefato.
 - Facilitam a análise exploratória e a investigação iterativa dos dados.
 - Permitem visualizar o comportamento e a distribuição das variáveis por
   meio de gráficos.

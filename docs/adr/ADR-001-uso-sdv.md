@@ -6,8 +6,8 @@ Aceito.
 
 ## Contexto
 
-- O projeto precisa modelar e gerar dados tabulares sintéticos a partir de um
-  conjunto preparado.
+- O `synthetic-data-engine` precisa modelar e gerar dados tabulares sintéticos a
+  partir de um conjunto preparado.
 - O SDV oferece uma interface comum para detecção de metadados, treinamento,
   amostragem e avaliação.
 - A biblioteca disponibiliza diferentes sintetizadores para tabelas, entre eles

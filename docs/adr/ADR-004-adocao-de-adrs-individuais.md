@@ -6,9 +6,9 @@ Aceito.
 
 ## Contexto
 
-As decisões técnicas do projeto seriam registradas de forma centralizada no
-arquivo `docs/decisions.md`. Considerando a evolução prevista do projeto, foi
-identificada a necessidade de adotar uma abordagem que proporcionasse maior
+As decisões técnicas do `synthetic-data-engine` seriam registradas de forma
+centralizada no arquivo `docs/decisions.md`. Considerando a evolução prevista
+do projeto, foi identificada a necessidade de adotar uma abordagem que proporcionasse maior
 rastreabilidade, melhor organização e um ciclo de vida independente para cada
 decisão arquitetural.
 
