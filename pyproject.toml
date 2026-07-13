@@ -20,7 +20,7 @@ notebooks = [
     "ipykernel>=6.29.0",
     "watermark>=2.4.0,<3.0.0",
     "pandas>=2.2.0,<3.0.0",
-    "plotly>=5.24.0,<6.0.0",
+    "matplotlib>=3.9.0,<4.0.0",
     "scipy>=1.14.0,<2.0.0"
 ]
 
