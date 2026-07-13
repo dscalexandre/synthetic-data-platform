@@ -1,7 +1,7 @@
 [project]
-name = "synthetic-data-platform"
+name = "synthetic-data-engine"
 version = "0.1.0"
-description = "Plataforma de geração de dados sintéticos usando SDV."
+description = "Motor de geração de dados sintéticos usando SDV."
 readme = "README.md"
 requires-python = ">=3.10,<3.12"
 
