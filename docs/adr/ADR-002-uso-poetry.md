@@ -6,8 +6,8 @@ Aceito.
 
 ## Contexto
 
-- O projeto precisa declarar, resolver e instalar dependências Python de forma
-  reproduzível.
+- O `synthetic-data-engine` precisa declarar, resolver e instalar dependências
+  Python de forma reproduzível.
 - O ambiente inclui dependências obrigatórias para síntese de dados e um
   conjunto opcional para análise, visualização e execução dos notebooks.
 - O projeto não distribui um pacote Python próprio.

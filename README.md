@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="docs/images/synthetic-data-platform.png" alt="Synthetic Data Platform" width="900">
+  <img src="docs/images/synthetic-data-engine.png" alt="Synthetic Data Engine" width="900">
 </p>
 
-# Synthetic Data Platform
+# Synthetic Data Engine
 
 Protótipo de um fluxo reproduzível para preparação, geração e avaliação de dados tabulares sintéticos com Python, Jupyter e [SDV](https://docs.sdv.dev/sdv). O projeto consolida partições de uma tabela, treina um sintetizador baseado em cópula gaussiana e persiste localmente os metadados e os dados sintéticos gerados.
 

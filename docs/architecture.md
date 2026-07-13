@@ -1,10 +1,10 @@
-# Arquitetura da Plataforma de Dados Sintéticos
+# Arquitetura do Synthetic Data Engine
 
 ## Visão geral
 
-A solução implementa um fluxo exploratório para analisar, preparar, gerar e
-avaliar dados tabulares sintéticos com o SDV. Nesta fase, os notebooks são
-simultaneamente a interface de execução, a implementação do fluxo e o registro
+O `synthetic-data-engine` implementa um fluxo exploratório para analisar,
+preparar, gerar e avaliar dados tabulares sintéticos com o SDV. Nesta fase, os
+notebooks são simultaneamente a interface de execução, a implementação do fluxo e o registro
 das análises.
 
 ```text
